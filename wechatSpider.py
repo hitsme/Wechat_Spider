@@ -1,7 +1,9 @@
+#!/usr/bin/python3
 # encoding: utf-8
 from http.cookiejar import MozillaCookieJar, CookieJar
 from urllib.request import Request, build_opener, HTTPCookieProcessor, urlopen
 import  json
+import time
 from JsonTools import jsonString2Dict
 from DBDao import getConnectDB
 from DBDao import initSpiderRecord
@@ -48,6 +50,7 @@ def grab(cookie):
         if cnt==0:
             publishWebsite(str(i['aid']),str(i['digest']),str(i['link']),str(j[1]))
       endIndex -= 6
+      time.sleep(10)
     response.close()
     db.close()
 
@@ -63,3 +66,8 @@ if __name__ == '__main__':
     #initWeChatSpiderLog()
     #initSpiderRecord()
     start()
+    #req = Request('https://mp.weixin.qq.com', headers=DEFAULT_HEADERS)
+    #opener = build_opener(HTTPCookieProcessor(gen_login_cookie()))
+    #response = opener.open(req, timeout=DEFAULT_TIMEOUT)
+    #encode_json = response.read().decode("utf8")
+    #print (encode_json)
